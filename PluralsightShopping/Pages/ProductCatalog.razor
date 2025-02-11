@@ -1,0 +1,28 @@
+﻿@page "/products"
+@using PluralsightShopping.Services
+@using PluralsightShopping.Shared
+
+@inject ProductService ProductService
+
+<PageTitle>Product Catalog</PageTitle>
+
+<h1>Our Products</h1>
+
+<ul>
+    @foreach (var product in Products)
+    {
+        <li>@product.ProductName</li>
+    }
+</ul>
+
+@code {
+    List<Product> Products { get; set; } = new List<Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Products.Clear();
+
+        // call out to the web api
+        Products.AddRange(await ProductService.GetProducts());
+    }
+}

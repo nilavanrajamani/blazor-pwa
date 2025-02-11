@@ -1,0 +1,6 @@
+@PluralsightShopping.API_HostAddress = http://localhost:5288
+
+GET {{PluralsightShopping.API_HostAddress}}/products/
+Accept: application/json
+
+###
