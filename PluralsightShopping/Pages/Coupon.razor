@@ -1,0 +1,23 @@
+﻿@page "/coupon"
+@using PluralsightShopping.Services
+@using PluralsightShopping.Shared
+
+@inject IJSRuntime JSRuntime
+@inject CouponService CouponService
+
+<h3>Coupon</h3>
+
+<button class="btn btn-primary" @onclick="RequestNotificationSubscriptionAsync">Subscribe to coupon notifications</button>
+
+@code {
+    private async Task RequestNotificationSubscriptionAsync(MouseEventArgs e)
+    {
+        var subscription = await JSRuntime.InvokeAsync<NotificationSubscription>("blazorPushNotifications.requestSubscription");
+
+        if (subscription != null)
+        {
+            // send the subscription to the server
+            await CouponService.SubscribeToNotifications(subscription);
+        }
+    }
+}
